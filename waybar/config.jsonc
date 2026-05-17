@@ -1,0 +1,81 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 34,
+
+  "modules-left": [
+    "sway/workspaces",
+    "cpu",
+    "memory"
+  ],
+
+  "modules-center": [
+    "clock"
+  ],
+
+  "modules-right": [
+    "pulseaudio",
+    "backlight",
+    "network",
+    "bluetooth",
+    "battery",
+    "tray"
+  ],
+
+  "clock": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "<big>{:%A %d %B %Y}</big>"
+  },
+
+  "cpu": {
+    "format": " {usage}%",
+    "tooltip": true
+  },
+
+  "memory": {
+    "format": "󰍛 {}%"
+  },
+
+  "network": {
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "󰈀 Ethernet",
+    "format-disconnected": "󰖪 Offline",
+    "tooltip-format": "{ifname} via {gwaddr}"
+  },
+
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "󰂲",
+    "format-connected": " Connected",
+    "tooltip-format": "{controller_alias}"
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% ",
+    "format-muted": "󰖁",
+    "on-click": "pavucontrol"
+  },
+
+  "backlight": {
+    "format": "{percent}% ☀"
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+
+    "format": "{capacity}% 🔋",
+    "format-charging": "{capacity}% ⚡",
+    "format-plugged": "{capacity}% 🔌",
+
+    "tooltip-format": "{timeTo} remaining",
+
+    "on-click": "kitty -- bash -c 'CURRENT=$(powerprofilesctl get); if [ \"$CURRENT\" = \"performance\" ]; then powerprofilesctl set balanced; elif [ \"$CURRENT\" = \"balanced\" ]; then powerprofilesctl set power-saver; else powerprofilesctl set performance; fi'"
+  },
+
+  "tray": {
+    "spacing": 10
+  }
+}
