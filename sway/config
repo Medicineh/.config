@@ -2,7 +2,7 @@
 set $mod Mod4
 
 ### APPS
-set $term kitty
+set $term alacritty
 set $menu wofi --show drun
 set $fm dolphin
 
