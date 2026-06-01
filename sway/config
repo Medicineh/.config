@@ -1,108 +1,193 @@
+### MOD
+
 set $mod Mod4
+
+### APPS
+
 set $term alacritty
 set $menu wofi --show drun
-set $locker swaylock
 set $fm dolphin
 
-font pango:Cantarell Regular 10
+### WALLPAPER
 
-floating_modifier $mod normal
-focus_follows_mouse yes
+output * bg /home/medicine/Imágenes/wallpaper.jpg fill
 
-input * {
-    xkb_layout es
-    tap enabled
-    natural_scroll enabled
-    dwt enabled
+### AUTOSTART
+
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway KDE_FULL_SESSION=true
+
+exec nm-applet
+exec blueman-applet
+exec mako
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
+
+exec_always sh -c "pkill waybar; sleep 1; waybar"
+
+### GTK
+
+exec gsettings set org.gnome.desktop.interface gtk-theme Breeze-Dark
+exec gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+### INPUT
+
+input type:keyboard {
+xkb_layout es
 }
 
-# Fondo
-exec_always --no-startup-id swaybg -i ~/Imágenes/wallpaper.jpg -m fill
+### TERMINAL
 
-# Barra
-exec_always --no-startup-id waybar
-
-# Servicios útiles
-exec_always --no-startup-id nm-applet
-exec_always --no-startup-id blueman-applet
-
-# Variables de entorno útiles para Wayland
-setenv QT_QPA_PLATFORMTHEME qt5ct
-setenv XDG_SESSION_TYPE wayland
-setenv SDL_VIDEODRIVER wayland
-setenv MOZ_ENABLE_WAYLAND 1
-
-# Waybar
-bar {
-    mode invisible
-}
-
-# Atajos básicos
 bindsym $mod+Return exec $term
+
+### LAUNCHER
+
 bindsym $mod+d exec $menu
+
+### FILE MANAGER
+
 bindsym $mod+e exec $fm
-bindsym $mod+Shift+l exec $locker
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+e exec swaynag -t warning -m "Salir de Sway?" -b "Sí" "swaymsg exit"
 
-# Capturas
-bindsym Print exec grim -g "$(slurp)" - | wl-copy
-bindsym Shift+Print exec grim - | wl-copy
+### CLOSE WINDOW
 
-# Ventanas
 bindsym $mod+q kill
-bindsym $mod+f fullscreen toggle
+
+### RELOAD
+
+bindsym $mod+Shift+c reload
+
+### EXIT
+
+bindsym $mod+Shift+e exec swaynag 
+-t warning 
+-m "Salir de Sway?" 
+-B "Sí" "swaymsg exit"
+
+### LOCK
+
+bindsym $mod+Shift+l exec swaylock -f -c 000000
+
+### FOCUS
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+### MOVE WINDOWS
+
+bindsym $mod+Ctrl+Left move left
+bindsym $mod+Ctrl+Down move down
+bindsym $mod+Ctrl+Up move up
+bindsym $mod+Ctrl+Right move right
+
+### FLOATING
+
+floating_modifier $mod
 bindsym $mod+space floating toggle
 bindsym $mod+Shift+space focus mode_toggle
 
-# Movimiento con teclado
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+### SCRATCHPAD
 
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+minus move scratchpad
+bindsym $mod+Shift+minus scratchpad show
 
-# Workspaces
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
+### RESIZE
 
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3
-bindsym $mod+Shift+4 move container to workspace number 4
-bindsym $mod+Shift+5 move container to workspace number 5
-bindsym $mod+Shift+6 move container to workspace number 6
-bindsym $mod+Shift+7 move container to workspace number 7
-bindsym $mod+Shift+8 move container to workspace number 8
-bindsym $mod+Shift+9 move container to workspace number 9
-bindsym $mod+Shift+0 move container to workspace number 10
+mode "resize" {
+bindsym Left resize shrink width 10px
+bindsym Down resize grow height 10px
+bindsym Up resize shrink height 10px
+bindsym Right resize grow width 10px
 
-# Sonido
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+```
+bindsym Return mode "default"
+bindsym Escape mode "default"
+```
 
-# Brillo
+}
+
+bindsym $mod+r mode "resize"
+
+### LAYOUTS
+
+bindsym $mod+v splitv
+bindsym $mod+b splith
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+t layout toggle split
+
+### WORKSPACES
+
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+### MOVE TO WORKSPACE
+
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+### SCREENSHOT
+
+bindsym Print exec grim -g "$(slurp)" - | wl-copy
+
+### AUDIO
+
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+### MEDIA
+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+### BRIGHTNESS
+
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
-# Lock
-exec_always --no-startup-id swayidle -w \
-    timeout 300 'swaylock -f' \
-    timeout 600 'systemctl suspend' \
-    before-sleep 'swaylock -f'
+### WAYBAR
 
-include /etc/sway/config.d/*
+bindsym $mod+Shift+w exec pkill waybar && waybar
+
+### GAPS
+
+gaps inner 8
+gaps outer 4
+
+### BORDER
+
+default_border pixel 2
+
+### FLOATING WINDOWS
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="dialog"] floating enable
+
+### IDLE
+
+exec swayidle -w 
+timeout 300 'swaylock -f -c 000000' 
+timeout 600 'swaymsg "output * power off"' 
+resume 'swaymsg "output * power on"' 
+before-sleep 'swaylock -f -c 000000'
