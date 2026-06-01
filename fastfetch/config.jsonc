@@ -1,34 +1,143 @@
 {
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+
+  "logo": {
+    "source": "cachyos",
+    "padding": {
+      "right": 4
+    }
+  },
+
+  "display": {
+    "separator": ": "
+  },
+
   "modules": [
-    "title",
-    "separator",
-    "os",
-    "host",
-    "kernel",
-    "uptime",
-    "packages",
-    "shell",
-    "display",
-    "de",
-    "wm",
-    "wmtheme",
-    "theme",
-    "icons",
-    "font",
-    "cursor",
-    "terminal",
-    "terminalfont",
-    "cpu",
-    "gpu",
-    "memory",
-    "swap",
-    "disk",
-    "localip",
-    "battery",
-    "poweradapter",
-    "locale",
+
     "break",
-    "colors"
+
+    {
+      "type": "title",
+      "color": {
+        "user": "blue",
+        "at": "white",
+        "host": "cyan"
+      }
+    },
+
+    "break",
+
+    {
+      "type": "custom",
+      "format": "┌────────── Hardware ──────────┐"
+    },
+
+    {
+      "type": "cpu",
+      "key": " CPU"
+    },
+
+    {
+      "type": "gpu",
+      "key": "󰍛 GPU"
+    },
+
+    {
+      "type": "memory",
+      "key": "󰑭 RAM"
+    },
+
+    {
+      "type": "disk",
+      "key": " Disk",
+      "folders": "/"
+    },
+
+    {
+      "type": "custom",
+      "format": "└──────────────────────────────┘"
+    },
+
+    "break",
+
+    {
+      "type": "custom",
+      "format": "┌────────── Software ──────────┐"
+    },
+
+    {
+      "type": "os",
+      "key": "󰣇 OS"
+    },
+
+    {
+      "type": "kernel",
+      "key": "󰒋 Kernel"
+    },
+
+    {
+      "type": "packages",
+      "key": "󰏖 Packages"
+    },
+
+    {
+      "type": "shell",
+      "key": " Shell"
+    },
+
+    {
+      "type": "de",
+      "key": "󰧨 DE"
+    },
+
+    {
+      "type": "wm",
+      "key": "󱂬 WM"
+    },
+
+    {
+      "type": "terminal",
+      "key": " Terminal"
+    },
+
+    {
+      "type": "custom",
+      "format": "└──────────────────────────────┘"
+    },
+
+    "break",
+
+    {
+      "type": "custom",
+      "format": "┌────── Uptime / Age / DT ─────┐"
+    },
+
+    {
+      "type": "command",
+      "key": "󱦟 OS Age",
+      "text": "echo \"$(($(date +%s) - $(stat -c %W /)))\" | awk '{print int($1/86400) \" days\"}'"
+    },
+
+    {
+      "type": "uptime",
+      "key": "󰅐 Uptime"
+    },
+
+    {
+      "type": "datetime",
+      "key": "󰃰 DateTime"
+    },
+
+    {
+      "type": "custom",
+      "format": "└──────────────────────────────┘"
+    },
+
+    "break",
+
+    {
+      "type": "colors",
+      "paddingLeft": 2
+    }
   ]
 }
