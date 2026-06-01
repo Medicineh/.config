@@ -15,7 +15,8 @@ output * bg /home/medicine/Imágenes/wallpaper.jpg fill
 ### AUTOSTART
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway KDE_FULL_SESSION=true
-
+exec autotiling
+exec gammastep
 exec nm-applet
 exec blueman-applet
 exec mako
