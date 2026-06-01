@@ -1,63 +1,50 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 34,
+  "height": 42,
+  "spacing": 4,
 
-  "modules-left": [
-    "sway/workspaces",
-    "cpu",
-    "memory"
-  ],
+  "modules-left": ["custom/launcher", "sway/workspaces", "sway/mode"],
+  "modules-center": ["clock"],
+  "modules-right": ["network", "bluetooth", "pulseaudio", "battery", "power-profiles-daemon", "tray"],
 
-  "modules-center": [
-    "clock"
-  ],
+  "custom/launcher": {
+    "format": "󰣇",
+    "tooltip": false,
+    "on-click": "wofi --show drun"
+  },
 
-  "modules-right": [
-    "pulseaudio",
-    "backlight",
-    "network",
-    "bluetooth",
-    "battery",
-    "tray"
-  ],
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}"
+  },
 
   "clock": {
-    "format": "{:%H:%M}",
-    "tooltip-format": "<big>{:%A %d %B %Y}</big>"
-  },
-
-  "cpu": {
-    "format": " {usage}%",
-    "tooltip": true
-  },
-
-  "memory": {
-    "format": "󰍛 {}%"
+    "format": "  {:%H:%M}",
+    "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>"
   },
 
   "network": {
-    "format-wifi": "  {signalStrength}%",
-    "format-ethernet": "󰈀 Ethernet",
-    "format-disconnected": "󰖪 Offline",
-    "tooltip-format": "{ifname} via {gwaddr}"
+    "format-wifi": "󰖩  {essid}",
+    "format-ethernet": "󰈀  {ipaddr}",
+    "format-disconnected": "󰖪  Offline",
+    "tooltip-format-wifi": "{essid}\n{signalStrength}%"
   },
 
   "bluetooth": {
-    "format": "",
-    "format-disabled": "󰂲",
-    "format-connected": " Connected",
-    "tooltip-format": "{controller_alias}"
+    "format": "",
+    "format-disabled": "",
+    "format-connected": "",
+    "tooltip-format": "Bluetooth"
   },
 
   "pulseaudio": {
-    "format": "{volume}% ",
-    "format-muted": "󰖁",
-    "on-click": "pavucontrol"
-  },
-
-  "backlight": {
-    "format": "{percent}% ☀"
+    "format": "  {volume}%",
+    "format-muted": "  Muted",
+    "scroll-step": 5,
+    "on-click": "pavucontrol",
+    "on-click-right": "alacritty -e nmtui"
   },
 
   "battery": {
@@ -65,14 +52,21 @@
       "warning": 30,
       "critical": 15
     },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
 
-    "format": "{capacity}% 🔋",
-    "format-charging": "{capacity}% ⚡",
-    "format-plugged": "{capacity}% 🔌",
-
-    "tooltip-format": "{timeTo} remaining",
-
-    "on-click": "kitty -- bash -c 'CURRENT=$(powerprofilesctl get); if [ \"$CURRENT\" = \"performance\" ]; then powerprofilesctl set balanced; elif [ \"$CURRENT\" = \"balanced\" ]; then powerprofilesctl set power-saver; else powerprofilesctl set performance; fi'"
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}",
+    "format-icons": {
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
   },
 
   "tray": {
