@@ -26,9 +26,11 @@
 },
 
 "clock": {
-"format": "{:%H:%M}",
-"tooltip-format": "{:%A %d %B %Y}"
-},
+    "format": "{:%H:%M}",
+    "format-alt": "{:%I:%M %p}",
+    "tooltip-format": "{:%A %d %B %Y}",
+    "on-click-right": "waybar-msg module clock toggle"
+}
 
 "cpu": {
 "format": " {usage}%"
