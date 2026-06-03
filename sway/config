@@ -2,9 +2,25 @@
 
 set $mod Mod4
 
+### FLEXI FLEXI ###
+
+
+### WORKSPACES
+
+set $ws1 "1"
+set $ws2 "2: Firefox"
+set $ws3 "3: Discord"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
 ### APPS
 
-set $term alacritty
+set $term kitty
 set $menu wofi --show drun
 set $fm dolphin
 
@@ -15,15 +31,20 @@ output * bg /home/medicine/Imágenes/wallpaper.jpg fill
 ### AUTOSTART
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway KDE_FULL_SESSION=true
+
 exec autotiling
 exec gammastep
 exec nm-applet
 exec blueman-applet
 exec mako
+
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
+
+exec firefox
+exec discord
 
 exec_always sh -c "pkill waybar; sleep 1; waybar"
 
@@ -38,9 +59,31 @@ input type:keyboard {
 xkb_layout es
 }
 
+### APPEARANCE
+
+gaps inner 10
+gaps outer 8
+
+default_border pixel 2
+
+client.focused          #89b4fa #89b4fa #1e1e2e #89b4fa
+client.focused_inactive #45475a #45475a #cdd6f4 #45475a
+client.unfocused        #313244 #313244 #cdd6f4 #313244
+client.urgent           #f38ba8 #f38ba8 #1e1e2e #f38ba8
+
 ### TERMINAL
 
 bindsym $mod+Return exec $term
+
+### SCRATCHPAD
+
+bindsym $mod+c exec kitty --class scratchpad
+bindsym $mod+Shift+c scratchpad show
+
+for_window [app_id="scratchpad"] floating enable
+for_window [app_id="scratchpad"] resize set width 75 ppt height 75 ppt
+for_window [app_id="scratchpad"] move position center
+for_window [app_id="scratchpad"] move scratchpad
 
 ### LAUNCHER
 
@@ -56,18 +99,15 @@ bindsym $mod+q kill
 
 ### RELOAD
 
-bindsym $mod+Shift+c reload
+bindsym $mod+Ctrl+r reload
 
 ### EXIT
 
-bindsym $mod+Shift+e exec swaynag 
--t warning 
--m "Salir de Sway?" 
--B "Sí" "swaymsg exit"
+bindsym $mod+Shift+e exec swaynag -t warning -m "Salir de Sway?" -B "Sí" "swaymsg exit"
 
 ### LOCK
 
-bindsym $mod+Shift+l exec swaylock -f -c 000000
+bindsym $mod+l exec swaylock
 
 ### FOCUS
 
@@ -78,29 +118,25 @@ bindsym $mod+Right focus right
 
 ### MOVE WINDOWS
 
-bindsym $mod+Ctrl+Left move left
-bindsym $mod+Ctrl+Down move down
-bindsym $mod+Ctrl+Up move up
-bindsym $mod+Ctrl+Right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
 ### FLOATING
 
 floating_modifier $mod
+
 bindsym $mod+space floating toggle
 bindsym $mod+Shift+space focus mode_toggle
-
-### SCRATCHPAD
-
-bindsym $mod+minus move scratchpad
-bindsym $mod+Shift+minus scratchpad show
 
 ### RESIZE
 
 mode "resize" {
-bindsym Left resize shrink width 10px
-bindsym Down resize grow height 10px
-bindsym Up resize shrink height 10px
-bindsym Right resize grow width 10px
+bindsym Left resize shrink width 10 px
+bindsym Right resize grow width 10 px
+bindsym Up resize shrink height 10 px
+bindsym Down resize grow height 10 px
 
 ```
 bindsym Return mode "default"
@@ -115,36 +151,43 @@ bindsym $mod+r mode "resize"
 
 bindsym $mod+v splitv
 bindsym $mod+b splith
+
 bindsym $mod+f fullscreen toggle
+
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+t layout toggle split
 
 ### WORKSPACES
 
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
 
 ### MOVE TO WORKSPACE
 
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Ctrl+1 move container to workspace $ws1
+bindsym $mod+Ctrl+2 move container to workspace $ws2
+bindsym $mod+Ctrl+3 move container to workspace $ws3
+bindsym $mod+Ctrl+4 move container to workspace $ws4
+bindsym $mod+Ctrl+5 move container to workspace $ws5
+bindsym $mod+Ctrl+6 move container to workspace $ws6
+bindsym $mod+Ctrl+7 move container to workspace $ws7
+bindsym $mod+Ctrl+8 move container to workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9
+bindsym $mod+Ctrl+0 move container to workspace $ws10
+
+### AUTO WORKSPACES
+
+assign [app_id="firefox"] workspace $ws2
+assign [app_id="discord"] workspace $ws3
 
 ### SCREENSHOT
 
@@ -171,24 +214,15 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
 bindsym $mod+Shift+w exec pkill waybar && waybar
 
-### GAPS
-
-gaps inner 8
-gaps outer 4
-
-### BORDER
-
-default_border pixel 2
-
 ### FLOATING WINDOWS
 
-for_window [window_role="pop-up"] floating enable
 for_window [window_role="dialog"] floating enable
+for_window [window_role="pop-up"] floating enable
 
 ### IDLE
 
-exec swayidle -w 
-timeout 300 'swaylock -f -c 000000' 
-timeout 600 'swaymsg "output * power off"' 
-resume 'swaymsg "output * power on"' 
-before-sleep 'swaylock -f -c 000000'
+exec swayidle -w
+timeout 300 'swaylock'
+timeout 600 'swaymsg "output * power off"'
+resume 'swaymsg "output * power on"'
+before-sleep 'swaylock'
