@@ -30,10 +30,10 @@
     "format-alt": "{:%I:%M %p}",
     "tooltip-format": "{:%A %d %B %Y}",
     "on-click-right": "waybar-msg module clock toggle"
-}
+},
 
 "cpu": {
-"format": " {usage}%"
+"format": " {usage}%"
 },
 
 "memory": {
@@ -41,8 +41,8 @@
 },
 
 "battery": {
-"format": "{capacity}% ",
-"format-charging": "{capacity}% "
+"format": "{capacity}% ",
+"format-charging": "{capacity}% "
 },
 
 "backlight": {
@@ -50,7 +50,7 @@
 },
 
 "pulseaudio": {
-"format": "{volume}% ",
+"format": "{volume}% ",
 "format-muted": "󰝟"
 },
 
