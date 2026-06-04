@@ -1,117 +1,225 @@
-{
-    "layer": "top",
-    "position": "top",
-    "height": 42,
-    "spacing": 6,
+### MOD
 
-    "modules-left": [
-        "custom/launcher",
-        "sway/workspaces",
-        "bluetooth",
-        "network"
-    ],
+set $mod Mod4
 
-    "modules-center": [
-        "clock"
-    ],
+### FLEXI FLEXI ###
 
-    "modules-right": [
-        "power-profiles-daemon",
-        "pulseaudio",
-        "battery",
-        "tray"
-    ],
 
-    "custom/launcher": {
-        "format": "",
-        "on-click": "wofi --show drun",
-        "tooltip": false
-    },
+### WORKSPACES
 
-    "sway/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "format": "{name}"
-    },
+set $ws1 "1"
+set $ws2 "2: Firefox"
+set $ws3 "3: Discord"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
-    "clock": {
-        "format": "  {:%H:%M}",
-        "tooltip-format": "<big>{:%A %d %B %Y}</big>",
-        "interval": 1
-    },
+### APPS
 
-    "network": {
-        "format-wifi": "  {signalStrength}%",
-        "format-ethernet": "󰈀 Connected",
-        "format-disconnected": "󰖪 Offline",
-        "tooltip-format": "{essid} - {ipaddr}",
-        "on-click": "nm-connection-editor",
-        "on-click-right": "kitty -e nmtui"
-    },
+set $term kitty
+set $menu wofi --show drun
+set $fm dolphin
 
-    "bluetooth": {
-        "format": "",
-        "format-disabled": "󰂲",
-        "format-connected": " {device_alias}",
-        "tooltip-format": "{controller_alias}",
-        "on-click": "blueman-manager"
-    },
+### WALLPAPER
 
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "󰝟 Muted",
-        "format-icons": {
-            "default": [
-                "",
-                "",
-                ""
-            ]
-        },
-        "on-click": "pavucontrol"
-    },
+output * bg /home/medicine/Imágenes/wallpaper.jpg fill
 
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
+### AUTOSTART
 
-        "format": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": " {capacity}%",
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
-        "format-icons": [
-            "󰁺",
-            "󰁻",
-            "󰁼",
-            "󰁽",
-            "󰁾",
-            "󰁿",
-            "󰂀",
-            "󰂁",
-            "󰂂",
-            "󰁹"
-        ],
+exec autotiling
+exec gammastep
+exec nm-applet
+exec blueman-applet
+exec mako
 
-        "tooltip-format": "{timeTo} remaining"
-    },
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-    "power-profiles-daemon": {
-        "format": "{icon}",
-        "tooltip-format": "Power mode: {profile}",
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
 
-        "format-icons": {
-            "performance": "󰓅",
-            "balanced": "󰾅",
-            "power-saver": "󰌪"
-        },
+exec firefox
+exec discord
 
-        "on-click": "powerprofilesctl set performance",
-        "on-click-right": "powerprofilesctl set balanced",
-        "on-click-middle": "powerprofilesctl set power-saver"
-    },
+exec_always sh -c "pkill waybar; sleep 1; waybar"
 
-    "tray": {
-        "spacing": 10
-    }
+### GTK
+
+exec gsettings set org.gnome.desktop.interface gtk-theme Breeze-Dark
+exec gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+### INPUT
+
+input type:keyboard {
+xkb_layout es
 }
+
+### APPEARANCE
+
+gaps inner 10
+gaps outer 8
+
+default_border pixel 2
+
+client.focused          #89b4fa #89b4fa #1e1e2e #89b4fa
+client.focused_inactive #45475a #45475a #cdd6f4 #45475a
+client.unfocused        #313244 #313244 #cdd6f4 #313244
+client.urgent           #f38ba8 #f38ba8 #1e1e2e #f38ba8
+
+### TERMINAL
+
+bindsym $mod+Return exec $term
+
+### SCRATCHPAD
+
+bindsym $mod+c exec kitty --class scratchpad
+bindsym $mod+Shift+c scratchpad show
+
+for_window [app_id="scratchpad"] floating enable
+for_window [app_id="scratchpad"] resize set width 75 ppt height 75 ppt
+for_window [app_id="scratchpad"] move position center
+for_window [app_id="scratchpad"] move scratchpad
+
+### LAUNCHER
+
+bindsym $mod+d exec $menu
+
+### FILE MANAGER
+
+bindsym $mod+e exec $fm
+
+### CLOSE WINDOW
+
+bindsym $mod+q kill
+
+### RELOAD
+
+bindsym $mod+Ctrl+r reload
+
+### EXIT
+
+bindsym $mod+Shift+e exec swaynag -t warning -m "Salir de Sway?" -B "Sí" "swaymsg exit"
+
+### LOCK
+
+bindsym $mod+l exec swaylock
+
+### FOCUS
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+### MOVE WINDOWS
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+### FLOATING
+
+floating_modifier $mod
+
+bindsym $mod+space floating toggle
+bindsym $mod+Shift+space focus mode_toggle
+
+### RESIZE
+
+mode "resize" {
+bindsym Left resize shrink width 10 px
+bindsym Right resize grow width 10 px
+bindsym Up resize shrink height 10 px
+bindsym Down resize grow height 10 px
+
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+### LAYOUTS
+
+bindsym $mod+v splitv
+bindsym $mod+b splith
+
+bindsym $mod+f fullscreen toggle
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+t layout toggle split
+
+### WORKSPACES
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+### MOVE TO WORKSPACE
+
+bindsym $mod+Ctrl+1 move container to workspace $ws1
+bindsym $mod+Ctrl+2 move container to workspace $ws2
+bindsym $mod+Ctrl+3 move container to workspace $ws3
+bindsym $mod+Ctrl+4 move container to workspace $ws4
+bindsym $mod+Ctrl+5 move container to workspace $ws5
+bindsym $mod+Ctrl+6 move container to workspace $ws6
+bindsym $mod+Ctrl+7 move container to workspace $ws7
+bindsym $mod+Ctrl+8 move container to workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9
+bindsym $mod+Ctrl+0 move container to workspace $ws10
+
+### AUTO WORKSPACES
+
+assign [app_id="firefox"] workspace $ws2
+assign [app_id="discord"] workspace $ws3
+
+### SCREENSHOT
+
+bindsym Print exec grim -g "$(slurp)" - | wl-copy
+
+### AUDIO
+
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+### MEDIA
+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+### BRIGHTNESS
+
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+### WAYBAR
+
+bindsym $mod+Shift+w exec pkill waybar && waybar
+
+### FLOATING WINDOWS
+
+for_window [window_role="dialog"] floating enable
+for_window [window_role="pop-up"] floating enable
+
+### IDLE
+
+exec swayidle -w \
+    timeout 300 'swaylock' \
+    timeout 600 'swaymsg "output * power off"' \
+    resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock'
