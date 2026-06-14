@@ -35,9 +35,11 @@
     },
 
     "clock": {
-        "format": "  {:%H:%M}",
-        "tooltip-format": "<big>{:%A %d %B %Y}</big>",
-        "interval": 1
+        "format": "󰥔  {:%H:%M}  󰃭 {:%d %b %Y}",
+        "format-alt": "  {:%A, %d de %B de %Y}",
+        "tooltip-format": "<big>{:%A, %d de %B de %Y}</big>\n<tt>{calendar}</tt>",
+        "on-click-right": "waybar-msg module clock toggle",
+        "interval": 60
     },
 
     "network": {
