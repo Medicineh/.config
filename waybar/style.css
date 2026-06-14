@@ -53,3 +53,17 @@ tooltip {
   border-radius: 8px;
   background: #1f1f1f;
 }
+
+#battery.warning {
+  color: #ebcb8b;
+}
+
+#battery.critical {
+  color: #bf616a;
+  background: rgba(191, 97, 106, 0.18);
+}
+
+#battery.charging,
+#battery.plugged {
+  color: #a3be8c;
+}
