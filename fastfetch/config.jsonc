@@ -109,7 +109,7 @@
 
     {
       "type": "custom",
-      "format": "┌────── Uptime / Age / DT ─────┐"
+      "format": "┌────── Uptime / Age / Time ───┐"
     },
 
     {
