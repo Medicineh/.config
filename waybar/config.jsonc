@@ -1,60 +1,117 @@
 {
-"layer": "top",
-"position": "top",
-"height": 34,
+    "layer": "top",
+    "position": "top",
+    "height": 42,
+    "spacing": 6,
 
-"modules-left": [
-"sway/workspaces"
-],
+    "modules-left": [
+        "custom/launcher",
+        "sway/workspaces",
+        "bluetooth",
+        "network"
+    ],
 
-"modules-center": [
-"clock"
-],
+    "modules-center": [
+        "clock"
+    ],
 
-"modules-right": [
-"pulseaudio",
-"backlight",
-"battery",
-"cpu",
-"memory",
-"tray"
-],
+    "modules-right": [
+        "power-profiles-daemon",
+        "pulseaudio",
+        "battery",
+        "tray"
+    ],
 
-"sway/workspaces": {
-"disable-scroll": true,
-"all-outputs": true
-},
+    "custom/launcher": {
+        "format": "",
+        "on-click": "wofi --show drun",
+        "tooltip": false
+    },
 
-"clock": {
-    "format": "{:%H:%M}",
-    "format-alt": "{:%I:%M %p}",
-    "tooltip-format": "{:%A %d %B %Y}",
-    "on-click-right": "waybar-msg module clock toggle"
-},
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}"
+    },
 
-"cpu": {
-"format": " {usage}%"
-},
+    "clock": {
+        "format": "  {:%H:%M}",
+        "tooltip-format": "<big>{:%A %d %B %Y}</big>",
+        "interval": 1
+    },
 
-"memory": {
-"format": "󰍛 {}%"
-},
+    "network": {
+        "format-wifi": "  {signalStrength}%",
+        "format-ethernet": "󰈀 Connected",
+        "format-disconnected": "󰖪 Offline",
+        "tooltip-format": "{essid} - {ipaddr}",
+        "on-click": "nm-connection-editor",
+        "on-click-right": "kitty -e nmtui"
+    },
 
-"battery": {
-"format": "{capacity}% ",
-"format-charging": "{capacity}% "
-},
+    "bluetooth": {
+        "format": "",
+        "format-disabled": "󰂲",
+        "format-connected": " {device_alias}",
+        "tooltip-format": "{controller_alias}",
+        "on-click": "blueman-manager"
+    },
 
-"backlight": {
-"format": "{percent}% ☀"
-},
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 Muted",
+        "format-icons": {
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+        "on-click": "pavucontrol"
+    },
 
-"pulseaudio": {
-"format": "{volume}% ",
-"format-muted": "󰝟"
-},
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
 
-"tray": {
-"spacing": 10
-}
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": " {capacity}%",
+
+        "format-icons": [
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+
+        "tooltip-format": "{timeTo} remaining"
+    },
+
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power mode: {profile}",
+
+        "format-icons": {
+            "performance": "󰓅",
+            "balanced": "󰾅",
+            "power-saver": "󰌪"
+        },
+
+        "on-click": "powerprofilesctl set performance",
+        "on-click-right": "powerprofilesctl set balanced",
+        "on-click-middle": "powerprofilesctl set power-saver"
+    },
+
+    "tray": {
+        "spacing": 10
+    }
 }

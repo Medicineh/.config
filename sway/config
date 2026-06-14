@@ -8,8 +8,8 @@ set $mod Mod4
 ### WORKSPACES
 
 set $ws1 "1"
-set $ws2 "2: Firefox"
-set $ws3 "3: Discord"
+set $ws2 "2"
+set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
@@ -43,10 +43,14 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 
+exec swaymsg workspace $ws1
 exec firefox
+exec steam -silent
+exec $term --class startup-terminal
 exec discord
+exec sh -c "sleep 3; swaymsg workspace $ws1"
 
-exec_always sh -c "pkill waybar; sleep 1; waybar"
+exec_always sh -c "pkill waybar; sleep 1; waybar -c ~/.config/waybar/config"
 
 ### GTK
 
@@ -183,8 +187,14 @@ bindsym $mod+Ctrl+0 move container to workspace $ws10
 
 ### AUTO WORKSPACES
 
-assign [app_id="firefox"] workspace $ws2
-assign [app_id="discord"] workspace $ws3
+assign [app_id="firefox"] workspace $ws1
+assign [class="Firefox"] workspace $ws1
+assign [class="Steam"] workspace $ws1
+assign [app_id="steam"] workspace $ws1
+assign [app_id="startup-terminal"] workspace $ws2
+assign [app_id="discord"] workspace $ws2
+assign [class="discord"] workspace $ws2
+assign [class="Discord"] workspace $ws2
 
 ### SCREENSHOT
 
@@ -209,7 +219,7 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
 ### WAYBAR
 
-bindsym $mod+Shift+w exec pkill waybar && waybar
+bindsym $mod+Shift+w exec pkill waybar && waybar -c ~/.config/waybar/config
 
 ### FLOATING WINDOWS
 
