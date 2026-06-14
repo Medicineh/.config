@@ -48,6 +48,16 @@
     },
 
     {
+      "type": "battery",
+      "key": "󰁹 Battery"
+    },
+
+    {
+      "type": "localip",
+      "key": "󰩟 IP"
+    },
+
+    {
       "type": "disk",
       "key": " Disk",
       "folders": "/"
