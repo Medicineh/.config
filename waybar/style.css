@@ -36,9 +36,25 @@ color: white;
 #tray,
 #power-profiles-daemon {
 background: rgba(40, 40, 40, 0.85);
+border: 1px solid rgba(255, 255, 255, 0.08);
 border-radius: 10px;
 padding: 0 12px;
 margin: 4px;
+transition: background 0.2s ease, color 0.2s ease;
+}
+
+#clock {
+background: rgba(94, 129, 172, 0.25);
+color: #d8dee9;
+}
+
+#clock:hover,
+#battery:hover,
+#pulseaudio:hover,
+#network:hover,
+#bluetooth:hover,
+#power-profiles-daemon:hover {
+background: rgba(94, 129, 172, 0.35);
 }
 
 #custom-launcher {
