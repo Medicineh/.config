@@ -19,7 +19,8 @@
         "power-profiles-daemon",
         "pulseaudio",
         "battery",
-        "tray"
+        "tray",
+        "custom/power"
     ],
 
     "custom/launcher": {
@@ -113,5 +114,11 @@
 
     "tray": {
         "spacing": 10
+    },
+
+    "custom/power": {
+        "format": "󰐥",
+        "on-click": "~/.config/sway/scripts/power-menu.sh",
+        "tooltip": false
     }
 }
