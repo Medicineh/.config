@@ -115,7 +115,7 @@
     {
       "type": "command",
       "key": "󱦟 OS Age",
-      "text": "echo \"$(($(date +%s) - $(stat -c %W /)))\" | awk '{print int($1/86400) \" days\"}'"
+      "text": "birth=$(stat -c %W / 2>/dev/null); case $birth in \"\"|0|*[!0-9]*) echo Unknown ;; *) echo \"$(( ($(date +%s) - birth) / 86400 )) days\" ;; esac"
     },
 
     {
