@@ -108,6 +108,7 @@ bindsym $mod+Ctrl+r reload
 ### EXIT
 
 bindsym $mod+Shift+e exec swaynag -t warning -m "Salir de Sway?" -B "Sí" "swaymsg exit"
+bindsym $mod+Shift+p exec ~/.config/sway/scripts/power-menu.sh
 
 ### LOCK
 

@@ -48,6 +48,16 @@
     },
 
     {
+      "type": "battery",
+      "key": "󰁹 Battery"
+    },
+
+    {
+      "type": "localip",
+      "key": "󰩟 IP"
+    },
+
+    {
       "type": "disk",
       "key": " Disk",
       "folders": "/"
@@ -109,13 +119,13 @@
 
     {
       "type": "custom",
-      "format": "┌────── Uptime / Age / DT ─────┐"
+      "format": "┌────── Uptime / Age / Time ───┐"
     },
 
     {
       "type": "command",
       "key": "󱦟 OS Age",
-      "text": "birth=$(stat -c %W / 2>/dev/null); case $birth in \"\"|0|*[!0-9]*) echo Unknown ;; *) echo \"$(( ($(date +%s) - birth) / 86400 )) days\" ;; esac"
+      "text": "birth=$(stat -c %W / 2>/dev/null); case \"$birth\" in \"\"|0|*[!0-9]*) echo Unknown ;; *) echo \"$(( ($(date +%s) - birth) / 86400 )) days\" ;; esac"
     },
 
     {
